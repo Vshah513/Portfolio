@@ -8,6 +8,7 @@ interface SectionHeadingProps {
   title: string;
   description?: string;
   className?: string;
+  titleClassName?: string;
   align?: "left" | "center";
 }
 
@@ -16,6 +17,7 @@ export function SectionHeading({
   title,
   description,
   className,
+  titleClassName,
   align = "center",
 }: SectionHeadingProps) {
   return (
@@ -25,7 +27,7 @@ export function SectionHeading({
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" as const }}
       className={cn(
-        "mb-12",
+        "mb-24 sm:mb-32 pt-12 sm:pt-16",
         align === "center" && "text-center",
         className
       )}
@@ -36,7 +38,10 @@ export function SectionHeading({
         </span>
       )}
       <h2
-        className="text-3xl font-bold tracking-tight text-[var(--color-text-primary)] sm:text-4xl lg:text-5xl"
+        className={cn(
+          "text-3xl font-bold tracking-tight text-[var(--color-text-primary)] sm:text-4xl lg:text-5xl",
+          titleClassName
+        )}
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
         {title}

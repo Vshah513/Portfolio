@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionShell } from "@/components/layout/SectionShell";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { personal } from "@/content/personal";
@@ -27,9 +29,64 @@ const fadeUp = {
 };
 
 const proofItems = [
-  { value: "2+", label: "Products Shipped" },
-  { value: "Full-Stack", label: "End to End" },
-  { value: "7-Day", label: "Launch Speed" },
+  { value: "Fast Shipping", subtext: "Weekly iteration cadence" },
+  { value: "End-to-End", subtext: "Design → Build → Deploy" },
+  { value: "Launch Packages", subtext: "7-day landing • 21-day MVP" },
+];
+
+const projectBullets: Record<string, string[]> = {
+  outfittr: [
+    "Marketplace flows • Mobile-first",
+    "Payments-ready (M-Pesa oriented)",
+    "Interactive swipe discovery demo",
+  ],
+  "cash-clarity": [
+    "Finance dashboard + data viz",
+    "Tool suite (runway, scenarios, exports)",
+    "Public demo mode planned",
+  ],
+};
+
+const capabilityCards = [
+  {
+    title: "Product Engineering",
+    lines: [
+      "Design → build → deploy fast",
+      "Clear scope, rapid iterations, production polish",
+    ],
+  },
+  {
+    title: "Frontend Systems",
+    lines: [
+      "Component architecture, state patterns",
+      "Motion/interaction without jank",
+    ],
+  },
+  {
+    title: "Full-Stack Delivery",
+    lines: [
+      "Auth, database, APIs, dashboards",
+      "Deployment + reliability basics",
+    ],
+  },
+  {
+    title: "Marketplace / Payments Patterns",
+    lines: [
+      "Listings, seller flows, pricing logic",
+      "Payment-ready checkout patterns",
+    ],
+  },
+];
+
+const stackChips = [
+  "Next.js",
+  "TypeScript",
+  "Tailwind",
+  "Supabase",
+  "Postgres",
+  "Framer Motion",
+  "R3F/Drei",
+  "Vercel",
 ];
 
 export default function Home() {
@@ -38,27 +95,31 @@ export default function Home() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* 3D layer — pinned behind all content */}
-        <div className="absolute inset-0 z-0">
+      <section className="relative min-h-[75vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden pt-20">
+        {/* 3D layer — behind everything */}
+        <div className="absolute inset-0 z-0 pointer-events-auto">
           <ShowroomScene />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/40 via-transparent to-[var(--color-bg)]" />
         </div>
+        {/* Vignette above 3D, below text */}
+        <div
+          className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/40 to-black/80 pointer-events-none"
+          aria-hidden
+        />
 
-        {/* Hero text — smaller so tiles stay visible behind */}
+        {/* Hero text — smaller so tiles stay visible */}
         <motion.div
           variants={stagger}
           initial="hidden"
           animate="visible"
-          className="relative z-10 mx-auto max-w-3xl px-4 text-center"
+          className="relative z-10 mx-auto max-w-3xl px-4 sm:px-5 text-center"
         >
-          <motion.div variants={fadeUp} className="mb-4">
+          <motion.div variants={fadeUp} className="mb-3">
             <Badge variant="gold">{personal.title}</Badge>
           </motion.div>
 
           <motion.h1
             variants={fadeUp}
-            className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+            className="text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
             <span className="text-[var(--color-text-primary)]">I build products</span>
@@ -68,7 +129,7 @@ export default function Home() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-5 mx-auto max-w-lg text-base text-[var(--color-text-secondary)] leading-relaxed sm:text-lg"
+            className="mt-3 mx-auto max-w-lg text-sm text-[var(--color-text-secondary)] leading-relaxed sm:text-base"
           >
             Product engineer specializing in marketplaces, fintech, and
             data-rich applications. From concept to shipped &mdash; fast.
@@ -76,7 +137,7 @@ export default function Home() {
 
           <motion.div
             variants={fadeUp}
-            className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button href="/work" variant="primary" size="lg">
               View My Work
@@ -85,113 +146,156 @@ export default function Home() {
               Start a Project
             </Button>
           </motion.div>
+
+          {/* Featured strip */}
+          <motion.div
+            variants={fadeUp}
+            className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-white/50"
+          >
+            <span>Featured: Outfittr — Try the Swipe Demo</span>
+            <Link
+              href="/work/outfittr#demo"
+              className="text-[var(--color-gold)]/80 hover:text-[var(--color-gold)] transition-colors"
+            >
+              Try Demo
+            </Link>
+          </motion.div>
         </motion.div>
       </section>
 
       {/* ── Everything below hero: normal flow, solid bg, above 3D ── */}
-      <div className="relative z-10 bg-[var(--color-bg)]">
-
-        {/* Proof Bar */}
-        <section className="mx-auto max-w-4xl px-4 -mt-16" style={{ marginBottom: "160px" }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="glass-strong rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-around gap-8"
-          >
-            {proofItems.map((item) => (
-              <div key={item.label} className="text-center">
-                <div className="text-2xl font-bold gradient-gold">{item.value}</div>
-                <div className="mt-1 text-sm text-[var(--color-text-secondary)]">
-                  {item.label}
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </section>
-
-        {/* Featured Exhibit */}
-        <section
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-          style={{ paddingBottom: "180px" }}
-        >
-          <SectionHeading
-            label="Featured Work"
-            title="What I've Built"
-            description="Interactive products with real users, real payments, and real complexity."
-          />
-
-          <div className="grid gap-8 md:grid-cols-2">
-            {featured.map((project, i) => (
+      <main className="relative z-10 bg-[var(--color-bg)]">
+        <div className="flex flex-col space-y-24 md:space-y-32">
+          {/* Proof Bar */}
+          <SectionShell id="proof" className="py-10 md:py-12 border-b border-white/5">
+            <div className="mx-auto max-w-4xl">
               <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
+                transition={{ duration: 0.6 }}
+                className="glass-strong rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-around gap-10 sm:gap-16"
               >
-                <Card className="h-full flex flex-col">
-                  <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span
-                        className="text-4xl font-bold gradient-gold opacity-30"
-                        style={{ fontFamily: "var(--font-playfair), serif" }}
-                      >
-                        {project.title}
-                      </span>
+                {proofItems.map((item) => (
+                  <div key={item.value} className="text-center">
+                    <div className="text-xl font-bold gradient-gold">{item.value}</div>
+                    <div className="mt-1 text-sm text-[var(--color-text-secondary)]">
+                      {item.subtext}
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-2 mb-3">
-                    <Badge variant={project.status === "shipped" ? "status" : "gold"}>
-                      {project.status === "shipped" ? "Shipped" : "In Progress"}
-                    </Badge>
-                    {project.tags.slice(0, 3).map((tag) => (
-                      <Badge key={tag}>{tag}</Badge>
-                    ))}
-                  </div>
-
-                  <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed mb-6 flex-1">
-                    {project.tagline}
-                  </p>
-
-                  <div className="flex flex-wrap gap-3">
-                    <Button href={`/work/${project.slug}`} variant="secondary" size="sm">
-                      View Exhibit
-                    </Button>
-                    {project.links.live && (
-                      <Button href={project.links.live} variant="ghost" size="sm" external>
-                        Live Site &rarr;
-                      </Button>
-                    )}
-                    {project.slices.length > 0 && (
-                      <Button href={`/work/${project.slug}#demo`} variant="ghost" size="sm">
-                        Try Demo
-                      </Button>
-                    )}
-                  </div>
-                </Card>
+                ))}
               </motion.div>
-            ))}
-          </div>
-        </section>
+            </div>
+          </SectionShell>
 
-        {/* How I Work */}
-        <section
-          className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"
-          style={{ paddingTop: "2rem", paddingBottom: "2rem" }}
-        >
-          <SectionHeading
-            label="Process"
-            title="How I Work"
-            description="Three phases. No bloat. You see progress every few days."
-          />
+          {/* S3: Featured Work */}
+          <SectionShell id="work" className="border-b border-white/5 scroll-mt-24">
+            <SectionHeading
+              label="Featured Work"
+              title="What I've Built"
+              description="Interactive products with real users, real payments, and real complexity."
+              className="pt-60 sm:pt-80"
+              titleClassName="border border-black"
+            />
+            <div className="mt-10 md:mt-12 grid gap-8 md:grid-cols-2">
+            {featured.map((project, i) => {
+              const bullets = projectBullets[project.id];
+              const hasDemo = project.slices.length > 0;
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.15 }}
+                >
+                  <Card className="h-full flex flex-col">
+                    <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
+                      {project.heroImage ? (
+                        <>
+                          <img
+                            src={project.heroImage}
+                            alt=""
+                            className="absolute inset-0 w-full h-full object-cover"
+                          />
+                          <div
+                            className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"
+                            aria-hidden
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"
+                            aria-hidden
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <span
+                              className="text-3xl font-bold gradient-gold opacity-30"
+                              style={{ fontFamily: "var(--font-playfair), serif" }}
+                            >
+                              {project.title}
+                            </span>
+                          </div>
+                        </>
+                      )}
+                    </div>
 
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge variant={project.status === "shipped" ? "status" : "gold"}>
+                        {project.status === "shipped" ? "Shipped" : "In Progress"}
+                      </Badge>
+                      {project.tags.slice(0, 3).map((tag) => (
+                        <Badge key={tag}>{tag}</Badge>
+                      ))}
+                    </div>
+
+                    <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed mb-3">
+                      {project.tagline}
+                    </p>
+
+                    {bullets && (
+                      <ul className="text-xs text-white/60 leading-relaxed mb-6 flex-1 space-y-1">
+                        {bullets.map((b) => (
+                          <li key={b}>{b}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {!bullets && <div className="flex-1 min-h-[3rem]" />}
+
+                    <div className="flex flex-wrap gap-3">
+                      {hasDemo && (
+                        <Button href={`/work/${project.slug}#demo`} variant="primary" size="sm">
+                          Try Demo
+                        </Button>
+                      )}
+                      <Button href={`/work/${project.slug}`} variant="secondary" size="sm">
+                        View Exhibit
+                      </Button>
+                      {project.links.live && (
+                        <Button href={project.links.live} variant="ghost" size="sm" external>
+                          Live Site &rarr;
+                        </Button>
+                      )}
+                    </div>
+                  </Card>
+                </motion.div>
+              );
+            })}
+            </div>
+          </SectionShell>
+
+          {/* S4: Process */}
+          <SectionShell id="process" className="border-b border-white/5 scroll-mt-24">
+            <SectionHeading
+              label="Process"
+              title="How I Work"
+              description="Three phases. No bloat. You see progress every few days."
+            />
+            <div className="mt-10 md:mt-12 grid gap-8 md:grid-cols-3">
             {personal.process.map((step, i) => (
               <motion.div
                 key={step.step}
@@ -200,7 +304,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.15 }}
               >
-                <Card hover={false} className="text-center relative overflow-hidden">
+                <Card hover={false} className="text-center relative overflow-hidden h-full">
                   <div
                     className="absolute top-4 right-4 text-6xl font-bold text-white/[0.03]"
                     style={{ fontFamily: "var(--font-playfair), serif" }}
@@ -216,52 +320,120 @@ export default function Home() {
                     <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                    <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
                       {step.description}
                     </p>
                   </div>
                 </Card>
               </motion.div>
             ))}
-          </div>
-        </section>
+            </div>
+          </SectionShell>
 
-        {/* CTA Banner */}
-        <section
-          className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"
-          style={{ marginTop: "220px", paddingBottom: "128px" }}
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-12 md:p-16 text-center relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-gold)]/5 to-transparent" />
-            <div className="relative z-10">
+          {/* S5: Capabilities */}
+          <SectionShell id="capabilities" className="border-b border-white/5 scroll-mt-24">
+            <div>
+              <span className="mb-3 inline-block text-sm font-medium tracking-wider uppercase text-[var(--color-gold)]">
+                CAPABILITIES
+              </span>
               <h2
-                className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4"
+                className="text-3xl font-bold tracking-tight text-[var(--color-text-primary)] sm:text-4xl"
                 style={{ fontFamily: "var(--font-playfair), serif" }}
               >
-                Ready to build something?
+                What I Do
               </h2>
-              <p className="text-[var(--color-text-secondary)] mb-8 max-w-md mx-auto">
-                I ship landing pages in 7 days and MVPs in 21. Let&apos;s talk about your project.
+              <p className="mt-4 max-w-2xl text-[var(--color-text-secondary)]">
+                Product engineering with design polish and fast delivery.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button href="/contact" variant="primary" size="lg">
-                  Start a Project
-                </Button>
-                <Button href="/services" variant="secondary" size="lg">
-                  View Packages
-                </Button>
+            </div>
+            <div className="mt-10 md:mt-12 grid gap-8 md:grid-cols-2">
+            {capabilityCards.map((cap, i) => (
+              <motion.div
+                key={cap.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+              >
+                <Card hover={false} className="h-full">
+                  <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
+                    {cap.title}
+                  </h3>
+                  <ul className="text-sm text-[var(--color-text-secondary)] leading-relaxed space-y-1">
+                    {cap.lines.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                </Card>
+              </motion.div>
+            ))}
+            </div>
+            <div className="mt-10">
+              <h3 className="text-sm font-medium text-[var(--color-text-secondary)] mb-4">Stack</h3>
+              <div className="flex flex-wrap gap-2">
+                {stackChips.map((chip) => (
+                  <span
+                    key={chip}
+                    className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70 hover:border-[var(--color-gold)]/40 transition-colors"
+                  >
+                    {chip}
+                  </span>
+                ))}
               </div>
             </div>
-          </motion.div>
-        </section>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+            <Button href={personal.github} variant="secondary" size="sm" external>
+              GitHub
+            </Button>
+            <Button href={personal.linkedin} variant="secondary" size="sm" external>
+              LinkedIn
+            </Button>
+            <Button href={`mailto:${personal.email}`} variant="secondary" size="sm">
+              Email
+            </Button>
+            {personal.resumeUrl && (
+              <Button href={personal.resumeUrl} variant="ghost" size="sm" external>
+                Download Resume
+              </Button>
+            )}
+            </div>
+          </SectionShell>
 
-      </div>
+          {/* S6: CTA */}
+          <SectionShell id="cta" className="py-12 md:py-16">
+            <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl py-10 px-6 md:py-12 md:px-10 text-center"
+          >
+            <h2
+              className="text-2xl font-bold text-[var(--color-text-primary)] mb-3"
+              style={{ fontFamily: "var(--font-playfair), serif" }}
+            >
+              Ready to build something?
+            </h2>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button href="/contact" variant="primary" size="md">
+                Start a Project
+              </Button>
+              <Button href="/services" variant="secondary" size="md">
+                View Packages
+              </Button>
+            </div>
+          </motion.div>
+          </SectionShell>
+
+          {/* Footer (outside SectionShell, still in the stack) */}
+          <footer className="w-full border-t border-white/5 py-10">
+            <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+              {/* Footer content managed by layout Footer component */}
+            </div>
+          </footer>
+
+        </div>
+      </main>
     </>
   );
 }

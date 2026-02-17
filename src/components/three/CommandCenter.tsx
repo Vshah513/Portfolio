@@ -22,7 +22,7 @@ export function CommandCenter() {
   const carouselRef = useRef<THREE.Group>(null);
 
   const totalSlots = projects.length + PLACEHOLDER_SLOTS.length;
-  const orbitRadius = 4.5;
+  const orbitRadius = 6.5;
   const angleStep = (Math.PI * 2) / totalSlots;
 
   const spinning = useShowroomStore((s) => s.spinning);
