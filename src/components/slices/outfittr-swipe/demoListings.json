@@ -1,0 +1,202 @@
+[
+  {
+    "id": "demo-1",
+    "title": "Vintage Denim Jacket",
+    "price": 2500,
+    "images": ["https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=500&fit=crop"],
+    "condition": "excellent",
+    "brand": "Levi's",
+    "size": "M",
+    "category": "vintage"
+  },
+  {
+    "id": "demo-2",
+    "title": "Floral Summer Dress",
+    "price": 1800,
+    "images": ["https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=500&fit=crop"],
+    "condition": "like_new",
+    "brand": "",
+    "size": "S",
+    "category": "womens"
+  },
+  {
+    "id": "demo-3",
+    "title": "Classic White Sneakers",
+    "price": 3200,
+    "images": ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop"],
+    "condition": "brand_new",
+    "brand": "Nike",
+    "size": "42",
+    "category": "shoes"
+  },
+  {
+    "id": "demo-4",
+    "title": "Oversized Graphic Tee",
+    "price": 800,
+    "images": ["https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=500&fit=crop"],
+    "condition": "good",
+    "brand": "",
+    "size": "L",
+    "category": "mens"
+  },
+  {
+    "id": "demo-5",
+    "title": "Leather Crossbody Bag",
+    "price": 4500,
+    "images": ["https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=500&fit=crop"],
+    "condition": "excellent",
+    "brand": "Coach",
+    "size": "",
+    "category": "accessories"
+  },
+  {
+    "id": "demo-6",
+    "title": "High-Waist Cargo Pants",
+    "price": 2200,
+    "images": ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=500&fit=crop"],
+    "condition": "like_new",
+    "brand": "Zara",
+    "size": "M",
+    "category": "womens"
+  },
+  {
+    "id": "demo-7",
+    "title": "Retro Sunglasses",
+    "price": 1200,
+    "images": ["https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&h=500&fit=crop"],
+    "condition": "brand_new",
+    "brand": "Ray-Ban",
+    "size": "",
+    "category": "accessories"
+  },
+  {
+    "id": "demo-8",
+    "title": "Slim Fit Chinos",
+    "price": 1500,
+    "images": ["https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=500&fit=crop"],
+    "condition": "good",
+    "brand": "H&M",
+    "size": "32",
+    "category": "mens"
+  },
+  {
+    "id": "demo-9",
+    "title": "Knit Sweater Vest",
+    "price": 1800,
+    "images": ["https://images.unsplash.com/photo-1434389677669-e08b4cda3df4?w=400&h=500&fit=crop"],
+    "condition": "excellent",
+    "brand": "",
+    "size": "M",
+    "category": "vintage"
+  },
+  {
+    "id": "demo-10",
+    "title": "Platform Boots",
+    "price": 5500,
+    "images": ["https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=500&fit=crop"],
+    "condition": "like_new",
+    "brand": "Dr. Martens",
+    "size": "38",
+    "category": "shoes"
+  },
+  {
+    "id": "demo-11",
+    "title": "Silk Blouse",
+    "price": 2800,
+    "images": ["https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=400&h=500&fit=crop"],
+    "condition": "excellent",
+    "brand": "",
+    "size": "S",
+    "category": "womens"
+  },
+  {
+    "id": "demo-12",
+    "title": "Canvas Backpack",
+    "price": 3000,
+    "images": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=500&fit=crop"],
+    "condition": "good",
+    "brand": "Herschel",
+    "size": "",
+    "category": "bags"
+  },
+  {
+    "id": "demo-13",
+    "title": "Bomber Jacket",
+    "price": 4200,
+    "images": ["https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&h=500&fit=crop"],
+    "condition": "like_new",
+    "brand": "Alpha Industries",
+    "size": "L",
+    "category": "mens"
+  },
+  {
+    "id": "demo-14",
+    "title": "Pleated Midi Skirt",
+    "price": 1600,
+    "images": ["https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=400&h=500&fit=crop"],
+    "condition": "brand_new",
+    "brand": "",
+    "size": "M",
+    "category": "womens"
+  },
+  {
+    "id": "demo-15",
+    "title": "Vintage Band Tee",
+    "price": 1400,
+    "images": ["https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=400&h=500&fit=crop"],
+    "condition": "good",
+    "brand": "",
+    "size": "XL",
+    "category": "vintage"
+  },
+  {
+    "id": "demo-16",
+    "title": "Running Shoes",
+    "price": 6500,
+    "images": ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop"],
+    "condition": "brand_new",
+    "brand": "Nike",
+    "size": "43",
+    "category": "shoes"
+  },
+  {
+    "id": "demo-17",
+    "title": "Cashmere Scarf",
+    "price": 3500,
+    "images": ["https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=400&h=500&fit=crop"],
+    "condition": "excellent",
+    "brand": "",
+    "size": "",
+    "category": "accessories"
+  },
+  {
+    "id": "demo-18",
+    "title": "Tailored Blazer",
+    "price": 5000,
+    "images": ["https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&h=500&fit=crop"],
+    "condition": "like_new",
+    "brand": "Hugo Boss",
+    "size": "M",
+    "category": "mens"
+  },
+  {
+    "id": "demo-19",
+    "title": "Corduroy Pants",
+    "price": 2000,
+    "images": ["https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=500&fit=crop"],
+    "condition": "good",
+    "brand": "",
+    "size": "30",
+    "category": "vintage"
+  },
+  {
+    "id": "demo-20",
+    "title": "Tote Bag",
+    "price": 1800,
+    "images": ["https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=500&fit=crop"],
+    "condition": "brand_new",
+    "brand": "",
+    "size": "",
+    "category": "bags"
+  }
+]
