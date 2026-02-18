@@ -70,7 +70,7 @@ export const projects: Project[] = [
         description: "Experience the product discovery — swipe right to like, left to pass",
       },
     ],
-    heroImage: "/projects/outfittr/hero.jpg",
+    heroImage: "/Outfittr Logo.png",
     screenshots: [
       "/projects/outfittr/browse.jpg",
       "/projects/outfittr/product.jpg",

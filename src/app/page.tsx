@@ -9,6 +9,8 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { personal } from "@/content/personal";
 import { getFeaturedProjects } from "@/content/projects";
+import { HeroDragHintProvider } from "@/contexts/HeroDragHintContext";
+import { HeroDragHint } from "@/components/hero/HeroDragHint";
 import dynamic from "next/dynamic";
 
 const ShowroomScene = dynamic(
@@ -27,12 +29,6 @@ const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
-
-const proofItems = [
-  { value: "Fast Shipping", subtext: "Weekly iteration cadence" },
-  { value: "End-to-End", subtext: "Design → Build → Deploy" },
-  { value: "Launch Packages", subtext: "7-day landing • 21-day MVP" },
-];
 
 const projectBullets: Record<string, string[]> = {
   outfittr: [
@@ -95,19 +91,23 @@ export default function Home() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative min-h-[75vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden pt-20">
-        {/* 3D layer — behind everything */}
-        <div className="absolute inset-0 z-0 pointer-events-auto">
-          <ShowroomScene />
-        </div>
-        {/* Vignette above 3D, below text */}
-        <div
-          className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/40 to-black/80 pointer-events-none"
-          aria-hidden
-        />
+      <section className="relative min-h-[75vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden pt-6 pb-32 md:pb-48">
+        <HeroDragHintProvider>
+          {/* 3D layer — behind everything */}
+          <div className="absolute inset-0 z-0 pointer-events-auto">
+            <ShowroomScene />
+          </div>
+          {/* Vignette above 3D, below text */}
+          <div
+            className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/40 to-black/80 pointer-events-none"
+            aria-hidden
+          />
 
-        {/* Hero text — smaller so tiles stay visible */}
-        <motion.div
+          {/* Drag hint — near orbiting cards, fades out after first drag/click (localStorage) */}
+          <HeroDragHint />
+
+          {/* Hero text — smaller so tiles stay visible */}
+          <motion.div
           variants={stagger}
           initial="hidden"
           animate="visible"
@@ -119,7 +119,7 @@ export default function Home() {
 
           <motion.h1
             variants={fadeUp}
-            className="text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+            className="text-xl font-bold tracking-tight sm:text-3xl lg:text-4xl"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
             <span className="text-[var(--color-text-primary)]">I build products</span>
@@ -129,10 +129,9 @@ export default function Home() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-3 mx-auto max-w-lg text-sm text-[var(--color-text-secondary)] leading-relaxed sm:text-base"
+            className="mt-3 mx-auto max-w-lg text-sm text-[var(--color-text-secondary)] leading-relaxed sm:text-sm"
           >
-            Product engineer specializing in marketplaces, fintech, and
-            data-rich applications. From concept to shipped &mdash; fast.
+            From concept to shipped &mdash; fast.
           </motion.p>
 
           <motion.div
@@ -146,58 +145,21 @@ export default function Home() {
               Start a Project
             </Button>
           </motion.div>
-
-          {/* Featured strip */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-white/50"
-          >
-            <span>Featured: Outfittr — Try the Swipe Demo</span>
-            <Link
-              href="/work/outfittr#demo"
-              className="text-[var(--color-gold)]/80 hover:text-[var(--color-gold)] transition-colors"
-            >
-              Try Demo
-            </Link>
-          </motion.div>
         </motion.div>
+        </HeroDragHintProvider>
       </section>
 
       {/* ── Everything below hero: normal flow, solid bg, above 3D ── */}
-      <main className="relative z-10 bg-[var(--color-bg)]">
-        <div className="flex flex-col space-y-24 md:space-y-32">
-          {/* Proof Bar */}
-          <SectionShell id="proof" className="py-10 md:py-12 border-b border-white/5">
-            <div className="mx-auto max-w-4xl">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="glass-strong rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-around gap-10 sm:gap-16"
-              >
-                {proofItems.map((item) => (
-                  <div key={item.value} className="text-center">
-                    <div className="text-xl font-bold gradient-gold">{item.value}</div>
-                    <div className="mt-1 text-sm text-[var(--color-text-secondary)]">
-                      {item.subtext}
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-          </SectionShell>
-
+      <div className="relative z-10 bg-[var(--color-bg)]">
+        <div className="flex flex-col gap-24 md:gap-32">
           {/* S3: Featured Work */}
-          <SectionShell id="work" className="border-b border-white/5 scroll-mt-24">
+          <SectionShell id="work" className="border-b border-white/5 scroll-mt-24 !pt-20 md:!pt-24">
             <SectionHeading
               label="Featured Work"
               title="What I've Built"
               description="Interactive products with real users, real payments, and real complexity."
-              className="pt-60 sm:pt-80"
-              titleClassName="border border-black"
             />
-            <div className="mt-10 md:mt-12 grid gap-8 md:grid-cols-2">
+            <div className="grid gap-8 md:grid-cols-2" style={{ maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}>
             {featured.map((project, i) => {
               const bullets = projectBullets[project.id];
               const hasDemo = project.slices.length > 0;
@@ -295,7 +257,7 @@ export default function Home() {
               title="How I Work"
               description="Three phases. No bloat. You see progress every few days."
             />
-            <div className="mt-10 md:mt-12 grid gap-8 md:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-3" style={{ maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}>
             {personal.process.map((step, i) => (
               <motion.div
                 key={step.step}
@@ -332,21 +294,12 @@ export default function Home() {
 
           {/* S5: Capabilities */}
           <SectionShell id="capabilities" className="border-b border-white/5 scroll-mt-24">
-            <div>
-              <span className="mb-3 inline-block text-sm font-medium tracking-wider uppercase text-[var(--color-gold)]">
-                CAPABILITIES
-              </span>
-              <h2
-                className="text-3xl font-bold tracking-tight text-[var(--color-text-primary)] sm:text-4xl"
-                style={{ fontFamily: "var(--font-playfair), serif" }}
-              >
-                What I Do
-              </h2>
-              <p className="mt-4 max-w-2xl text-[var(--color-text-secondary)]">
-                Product engineering with design polish and fast delivery.
-              </p>
-            </div>
-            <div className="mt-10 md:mt-12 grid gap-8 md:grid-cols-2">
+            <SectionHeading
+              label="Capabilities"
+              title="What I Do"
+              description="Product engineering with design polish and fast delivery."
+            />
+            <div className="grid gap-8 md:grid-cols-2" style={{ marginTop: '60px', maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}>
             {capabilityCards.map((cap, i) => (
               <motion.div
                 key={cap.title}
@@ -368,9 +321,8 @@ export default function Home() {
               </motion.div>
             ))}
             </div>
-            <div className="mt-10">
-              <h3 className="text-sm font-medium text-[var(--color-text-secondary)] mb-4">Stack</h3>
-              <div className="flex flex-wrap gap-2">
+            <div style={{ marginTop: '60px' }}>
+              <div className="flex flex-wrap gap-2" style={{ justifyContent: 'center' }}>
                 {stackChips.map((chip) => (
                   <span
                     key={chip}
@@ -381,7 +333,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="mt-6 flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4" style={{ marginTop: '48px', justifyContent: 'center' }}>
             <Button href={personal.github} variant="secondary" size="sm" external>
               GitHub
             </Button>
@@ -399,41 +351,8 @@ export default function Home() {
             </div>
           </SectionShell>
 
-          {/* S6: CTA */}
-          <SectionShell id="cta" className="py-12 md:py-16">
-            <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl py-10 px-6 md:py-12 md:px-10 text-center"
-          >
-            <h2
-              className="text-2xl font-bold text-[var(--color-text-primary)] mb-3"
-              style={{ fontFamily: "var(--font-playfair), serif" }}
-            >
-              Ready to build something?
-            </h2>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button href="/contact" variant="primary" size="md">
-                Start a Project
-              </Button>
-              <Button href="/services" variant="secondary" size="md">
-                View Packages
-              </Button>
-            </div>
-          </motion.div>
-          </SectionShell>
-
-          {/* Footer (outside SectionShell, still in the stack) */}
-          <footer className="w-full border-t border-white/5 py-10">
-            <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-              {/* Footer content managed by layout Footer component */}
-            </div>
-          </footer>
-
         </div>
-      </main>
+      </div>
     </>
   );
 }

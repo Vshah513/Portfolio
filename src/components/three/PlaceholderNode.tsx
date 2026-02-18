@@ -32,22 +32,20 @@ export function PlaceholderNode({ angle, radius, label, sublabel }: PlaceholderN
       {/* Dashed screen frame */}
       <RoundedBox args={[2.4, 1.6, 0.03]} radius={0.08} smoothness={4}>
         <meshStandardMaterial
-          color="#0d0d0d"
-          transparent
-          opacity={0.5}
+          color="#1c1c1c"
+          emissive="#1a1a1a"
+          emissiveIntensity={0.15}
           roughness={0.4}
           metalness={0.6}
         />
       </RoundedBox>
 
-      {/* Dim border */}
+      {/* Gold border — same on every card */}
       <RoundedBox args={[2.5, 1.7, 0.01]} radius={0.1} smoothness={4}>
         <meshStandardMaterial
           color="#C9A84C"
           emissive="#C9A84C"
-          emissiveIntensity={0.1}
-          transparent
-          opacity={0.08}
+          emissiveIntensity={0.5}
           roughness={0.5}
           metalness={0.8}
         />
@@ -56,10 +54,11 @@ export function PlaceholderNode({ angle, radius, label, sublabel }: PlaceholderN
       {/* Plus icon */}
       <Text
         position={[0, 0.15, 0.03]}
-        fontSize={0.35}
-        color="#C9A84C"
+        fontSize={0.4025}
+        color="#ffffff"
         anchorX="center"
         anchorY="middle"
+        fontWeight="bold"
       >
         +
       </Text>
@@ -67,11 +66,12 @@ export function PlaceholderNode({ angle, radius, label, sublabel }: PlaceholderN
       {/* Label */}
       <Text
         position={[0, -0.2, 0.03]}
-        fontSize={0.12}
-        color="#666666"
+        fontSize={0.138}
+        color="#ffffff"
         anchorX="center"
         anchorY="middle"
         maxWidth={2}
+        fontWeight="bold"
       >
         {label}
       </Text>
@@ -79,11 +79,12 @@ export function PlaceholderNode({ angle, radius, label, sublabel }: PlaceholderN
       {/* Sublabel */}
       <Text
         position={[0, -0.45, 0.03]}
-        fontSize={0.07}
-        color="#444444"
+        fontSize={0.0805}
+        color="#ffffff"
         anchorX="center"
         anchorY="middle"
         maxWidth={2}
+        fontWeight="bold"
       >
         {sublabel}
       </Text>

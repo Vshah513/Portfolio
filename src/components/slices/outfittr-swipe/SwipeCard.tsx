@@ -18,6 +18,7 @@ export interface ListingItem {
 interface SwipeCardProps {
   item: ListingItem;
   onSwipe: (direction: "left" | "right") => void;
+  onFirstInteraction?: () => void;
   isTop: boolean;
   stackIndex: number;
 }
@@ -30,7 +31,7 @@ const conditionLabels: Record<string, string> = {
   fair: "Fair",
 };
 
-export function SwipeCard({ item, onSwipe, isTop, stackIndex }: SwipeCardProps) {
+export function SwipeCard({ item, onSwipe, onFirstInteraction, isTop, stackIndex }: SwipeCardProps) {
   const x = useMotionValue(0);
   const rotate = useTransform(x, [-200, 200], [-15, 15]);
   const likeOpacity = useTransform(x, [0, 100], [0, 1]);
@@ -64,6 +65,7 @@ export function SwipeCard({ item, onSwipe, isTop, stackIndex }: SwipeCardProps) 
         drag={isTop ? "x" : false}
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.7}
+        onDragStart={isTop ? onFirstInteraction : undefined}
         onDragEnd={isTop ? handleDragEnd : undefined}
         whileDrag={{ scale: 1.02 }}
         exit={{

@@ -21,17 +21,22 @@ export function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="glass-strong mt-4 rounded-2xl px-6 py-3 flex items-center justify-between">
+        <div className="glass-strong mt-4 rounded-2xl px-8 py-4 flex items-center justify-between">
           {/* Logo */}
           <Link
             href="/"
-            className="text-lg font-bold tracking-tight text-[var(--color-text-primary)] hover:text-[var(--color-gold)] transition-colors"
+            className="flex items-center text-[var(--color-text-primary)] hover:opacity-90 transition-opacity"
+            aria-label="Viraj Shah - Home"
           >
-            <span className="gradient-gold">VS</span>
+            <img
+              src="/Viraj Shah updated2.png"
+              alt="Viraj Shah"
+              className="h-14 w-auto max-w-[260px] object-contain"
+            />
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-8">
             {links.map((link) => {
               const isActive =
                 pathname === link.href ||
@@ -66,9 +71,19 @@ export function Nav() {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <Button href="/contact" variant="primary" size="sm">
-              Start a Project
-            </Button>
+            <Link
+              href="/contact"
+              className="group flex items-center gap-2 text-sm font-medium text-[var(--color-gold)] hover:opacity-80 transition-opacity"
+            >
+              <span className="tracking-wide">Start a Project</span>
+              <motion.span
+                className="inline-block"
+                animate={{ x: [0, 3, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                →
+              </motion.span>
+            </Link>
           </div>
 
           {/* Mobile hamburger */}

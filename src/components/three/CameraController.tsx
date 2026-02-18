@@ -3,11 +3,18 @@
 import { useEffect } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { useShowroomActions } from "./useShowroomStore";
+import { useHeroDragHint } from "@/contexts/HeroDragHintContext";
 
 export function ShowroomControls() {
   const { pause, scheduleResume, clearTimer } = useShowroomActions();
+  const hint = useHeroDragHint();
 
   useEffect(() => clearTimer, [clearTimer]);
+
+  const handleStart = () => {
+    pause();
+    hint?.dismissHint();
+  };
 
   return (
     <OrbitControls
@@ -15,11 +22,10 @@ export function ShowroomControls() {
       dampingFactor={0.08}
       rotateSpeed={0.6}
       autoRotate={false}
-      onStart={pause}
+      onStart={handleStart}
       onEnd={scheduleResume}
       enablePan={false}
-      minDistance={5}
-      maxDistance={14}
+      enableZoom={false}
       minPolarAngle={Math.PI / 4}
       maxPolarAngle={Math.PI / 2.2}
     />

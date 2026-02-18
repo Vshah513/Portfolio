@@ -25,32 +25,27 @@ export default function WorkPage() {
   });
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-      <SectionHeading
-        label="Portfolio"
-        title="My Work"
-        description="Products I've designed, built, and shipped — each one a proof of concept in production."
-      />
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">
+      <div style={{ paddingTop: '140px', textAlign: 'center', paddingBottom: '64px' }}>
+        <SectionHeading
+          label="Portfolio"
+          title="My Work"
+          description="Products I've designed, built, and shipped — each one a proof of concept in production."
+        />
+      </div>
 
       <motion.div
         variants={stagger}
         initial="hidden"
         animate="visible"
         className="grid gap-8 md:grid-cols-2"
+        style={{ marginTop: '48px' }}
       >
         {sorted.map((project) => (
           <motion.div key={project.id} variants={fadeUp}>
             <Card className="h-full flex flex-col">
               {/* Image area */}
               <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span
-                    className="text-4xl font-bold gradient-gold opacity-30"
-                    style={{ fontFamily: "var(--font-playfair), serif" }}
-                  >
-                    {project.title}
-                  </span>
-                </div>
               </div>
 
               {/* Status + Tags */}

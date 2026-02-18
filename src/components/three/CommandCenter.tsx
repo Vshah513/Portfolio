@@ -8,6 +8,7 @@ import { ExhibitNode } from "./ExhibitNode";
 import { PlaceholderNode } from "./PlaceholderNode";
 import { ParticleField } from "./ParticleField";
 import { useShowroomStore } from "./useShowroomStore";
+import { useHeroDragHint } from "@/contexts/HeroDragHintContext";
 import * as THREE from "three";
 
 const PLACEHOLDER_SLOTS = [
@@ -20,6 +21,7 @@ const PLACEHOLDER_SLOTS = [
 export function CommandCenter() {
   const router = useRouter();
   const carouselRef = useRef<THREE.Group>(null);
+  const hint = useHeroDragHint();
 
   const totalSlots = projects.length + PLACEHOLDER_SLOTS.length;
   const orbitRadius = 6.5;
@@ -30,7 +32,7 @@ export function CommandCenter() {
   useFrame(() => {
     if (!carouselRef.current) return;
     if (spinning) {
-      carouselRef.current.rotation.y += 0.002;
+      carouselRef.current.rotation.y += 0.001;
     }
   });
 
@@ -87,7 +89,10 @@ export function CommandCenter() {
             title={project.title}
             tagline={project.tagline}
             status={project.status}
-            onClick={() => router.push(`/work/${project.slug}`)}
+            onClick={() => {
+              hint?.dismissHint();
+              router.push(`/work/${project.slug}`);
+            }}
           />
         ))}
 
@@ -107,10 +112,10 @@ export function CommandCenter() {
       <ParticleField count={150} spread={20} />
 
       {/* Lighting */}
-      <ambientLight intensity={0.2} />
-      <pointLight position={[0, 0, 0]} color="#C9A84C" intensity={2} distance={12} />
-      <pointLight position={[5, 5, 5]} color="#ffffff" intensity={0.3} />
-      <pointLight position={[-5, -3, -5]} color="#C9A84C" intensity={0.5} />
+      <ambientLight intensity={0.6} />
+      <pointLight position={[0, 0, 0]} color="#C9A84C" intensity={2.8} distance={12} />
+      <pointLight position={[5, 5, 5]} color="#ffffff" intensity={0.42} />
+      <pointLight position={[-5, -3, -5]} color="#C9A84C" intensity={0.7} />
 
       {/* Fog */}
       <fog attach="fog" args={["#0A0A0A", 8, 25]} />

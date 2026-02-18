@@ -62,22 +62,20 @@ export function ExhibitNode({
         onClick={onClick}
       >
         <meshStandardMaterial
-          color={hovered ? "#1a1a1a" : "#111111"}
-          transparent
-          opacity={0.85}
+          color={hovered ? "#1c1c1c" : "#1a1a1a"}
+          emissive="#1a1a1a"
+          emissiveIntensity={0.15}
           roughness={0.2}
           metalness={0.8}
         />
       </RoundedBox>
 
-      {/* Glow border */}
+      {/* Gold border — same on every card */}
       <RoundedBox args={[2.5, 1.7, 0.02]} radius={0.1} smoothness={4}>
         <meshStandardMaterial
           color="#C9A84C"
           emissive="#C9A84C"
-          emissiveIntensity={hovered ? 0.8 : 0.3}
-          transparent
-          opacity={hovered ? 0.6 : 0.2}
+          emissiveIntensity={0.5}
           roughness={0.3}
           metalness={1}
         />
@@ -86,11 +84,12 @@ export function ExhibitNode({
       {/* Title */}
       <Text
         position={[0, 0.2, 0.04]}
-        fontSize={0.22}
-        color="#F5F5F0"
+        fontSize={0.253}
+        color="#ffffff"
         anchorX="center"
         anchorY="middle"
         maxWidth={2}
+        fontWeight="bold"
       >
         {title}
       </Text>
@@ -98,11 +97,12 @@ export function ExhibitNode({
       {/* Tagline */}
       <Text
         position={[0, -0.15, 0.04]}
-        fontSize={0.1}
-        color="#A0A0A0"
+        fontSize={0.115}
+        color="#ffffff"
         anchorX="center"
         anchorY="middle"
         maxWidth={2}
+        fontWeight="bold"
       >
         {tagline}
       </Text>
@@ -110,10 +110,11 @@ export function ExhibitNode({
       {/* Status badge */}
       <Text
         position={[0, -0.5, 0.04]}
-        fontSize={0.08}
-        color="#C9A84C"
+        fontSize={0.092}
+        color="#ffffff"
         anchorX="center"
         anchorY="middle"
+        fontWeight="bold"
       >
         {status === "shipped" ? "SHIPPED" : "IN PROGRESS"}
       </Text>
