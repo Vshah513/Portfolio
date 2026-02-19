@@ -94,7 +94,7 @@ export default function Home() {
       <section className="relative min-h-[75vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden pt-6 pb-32 md:pb-48">
         <HeroDragHintProvider>
           {/* 3D layer — behind everything */}
-          <div className="absolute inset-0 z-0 pointer-events-auto">
+          <div className="absolute inset-0 z-0 pointer-events-auto" data-tour="hero-scene">
             <ShowroomScene />
           </div>
           {/* Vignette above 3D, below text */}
@@ -159,7 +159,7 @@ export default function Home() {
               title="What I've Built"
               description="Interactive products with real users, real payments, and real complexity."
             />
-            <div className="grid gap-8 md:grid-cols-2" style={{ maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}>
+            <div data-tour="work-cards" className="grid gap-8 md:grid-cols-2" style={{ maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}>
             {featured.map((project, i) => {
               const bullets = projectBullets[project.id];
               const hasDemo = project.slices.length > 0;

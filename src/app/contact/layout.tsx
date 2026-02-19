@@ -1,16 +1,18 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Let's build something together. Tell me about your project and I'll get back within 24 hours.",
+  title: 'Contact',
+  description: "Let's build something together. Tell me about your project and I'll get back within 24 hours.",
   openGraph: {
-    title: "Contact — Viraj Shah",
-    description:
-      "Let's build something together. Tell me about your project.",
+    title: 'Contact — Viraj Shah',
+    description: "Let's build something together. Tell me about your project.",
   },
 };
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <div style={{ paddingTop: '140px' }}>
+      {children}
+    </div>
+  );
 }

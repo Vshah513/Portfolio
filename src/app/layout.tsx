@@ -3,6 +3,8 @@ import { Inter, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { TourProvider } from "@/components/tour/TourProvider";
+import { TourOverlay } from "@/components/tour/TourOverlay";
 import "./globals.css";
 
 const inter = Inter({
@@ -54,11 +56,14 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <Nav />
-        <main id="main-content" className="min-h-screen pt-24">
-          {children}
-        </main>
-        <Footer />
+        <TourProvider>
+          <Nav />
+          <main id="main-content" className="min-h-screen pt-24">
+            {children}
+          </main>
+          <Footer />
+          <TourOverlay />
+        </TourProvider>
         <Analytics />
       </body>
     </html>

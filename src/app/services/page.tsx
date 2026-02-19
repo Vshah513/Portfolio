@@ -8,14 +8,16 @@ import { Button } from "@/components/ui/Button";
 
 export default function ServicesPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-      <SectionHeading
-        label="Services"
-        title="How We Can Work Together"
-        description="Productized packages so you know exactly what you're getting and when."
-      />
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-12" style={{ maxWidth: '72rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+        <SectionHeading
+          label="Services"
+          title="How We Can Work Together"
+          description="Productized packages so you know exactly what you're getting and when."
+        />
+      </div>
 
-      <div className="grid gap-8 lg:grid-cols-3">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', maxWidth: '72rem', marginLeft: 'auto', marginRight: 'auto' }}>
         {services.map((pkg, i) => (
           <motion.div
             key={pkg.id}

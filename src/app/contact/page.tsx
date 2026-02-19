@@ -28,25 +28,26 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-12" style={{ maxWidth: '48rem' }}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
+        style={{ textAlign: 'center' }}
       >
-        <span className="mb-3 inline-block text-sm font-medium tracking-wider uppercase text-[var(--color-gold)]">
+        <span className="inline-block text-sm font-medium tracking-wider uppercase text-[var(--color-gold)]" style={{ display: 'block', marginBottom: '24px' }}>
           Contact
         </span>
         <h1
-          className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] mb-4"
-          style={{ fontFamily: "var(--font-playfair), serif" }}
+          className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)]"
+          style={{ fontFamily: 'var(--font-playfair), serif', marginBottom: '32px' }}
         >
           Let&apos;s Build Something
         </h1>
-        <p className="text-lg text-[var(--color-text-secondary)] mb-2">
+        <p className="text-lg text-[var(--color-text-secondary)]" style={{ marginBottom: '16px' }}>
           Tell me about your project and I&apos;ll get back to you within 24 hours.
         </p>
-        <p className="text-sm text-[var(--color-text-muted)] mb-12">
+        <p className="text-sm text-[var(--color-text-muted)]" style={{ marginBottom: '64px' }}>
           Or email me directly at{" "}
           <a
             href={`mailto:${personal.email}`}
@@ -83,6 +84,7 @@ export default function ContactPage() {
           transition={{ duration: 0.6, delay: 0.15 }}
           onSubmit={handleSubmit}
           className="space-y-6"
+          style={{ maxWidth: '40rem', marginLeft: 'auto', marginRight: 'auto' }}
         >
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
@@ -168,9 +170,11 @@ export default function ContactPage() {
             />
           </div>
 
-          <Button type="submit" variant="primary" size="lg" className="w-full sm:w-auto">
-            Send Message
-          </Button>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button type="submit" variant="primary" size="lg" className="w-full sm:w-auto">
+              Send Message
+            </Button>
+          </div>
         </motion.form>
       )}
     </div>

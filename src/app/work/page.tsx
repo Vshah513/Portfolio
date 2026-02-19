@@ -5,7 +5,6 @@ import { projects } from "@/content/projects";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
 
 const stagger = {
   hidden: {},
@@ -43,63 +42,187 @@ export default function WorkPage() {
       >
         {sorted.map((project) => (
           <motion.div key={project.id} variants={fadeUp}>
-            <Card className="h-full flex flex-col">
-              {/* Image area */}
-              <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
-              </div>
+            <div style={{ position: 'relative', paddingBottom: '64px' }}>
+              {/* The card itself */}
+              <Card className="h-full flex flex-col">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
+                </div>
+                <div className="flex flex-wrap items-center gap-2 mb-3">
+                  <Badge variant={project.status === 'shipped' ? 'status' : 'gold'}>
+                    {project.status === 'shipped' ? 'Shipped' : 'In Progress'}
+                  </Badge>
+                  {project.tags.map((tag) => (
+                    <Badge key={tag}>{tag}</Badge>
+                  ))}
+                </div>
+                <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed mb-4 flex-1">
+                  {project.tagline}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {project.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-xs px-2 py-0.5 rounded bg-white/5 text-[var(--color-text-muted)]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </Card>
 
-              {/* Status + Tags */}
-              <div className="flex flex-wrap items-center gap-2 mb-3">
-                <Badge variant={project.status === "shipped" ? "status" : "gold"}>
-                  {project.status === "shipped" ? "Shipped" : "In Progress"}
-                </Badge>
-                {project.tags.map((tag) => (
-                  <Badge key={tag}>{tag}</Badge>
-                ))}
-              </div>
+              {/* Connector beam */}
+              <div style={{
+                position: 'absolute',
+                bottom: '40px',
+                left: '80px',
+                width: '1px',
+                height: '24px',
+                background: 'linear-gradient(to bottom, rgba(201,168,76,0.4), rgba(201,168,76,0))',
+              }} />
 
-              {/* Title + Tagline */}
-              <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
-                {project.title}
-              </h3>
-              <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed mb-4 flex-1">
-                {project.tagline}
-              </p>
+              {/* Floating buttons */}
+              <motion.div
+                animate={{ y: [0, -4, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                style={{
+                  position: 'absolute',
+                  bottom: '0px',
+                  left: '24px',
+                  display: 'flex',
+                  gap: '10px',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                <motion.a
+                  href={`/work/${project.slug}`}
+                  whileHover={{ scale: 1.08, rotateX: -6, rotateY: 4, y: -3 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '8px 18px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(201,168,76,0.6)',
+                    background: 'linear-gradient(135deg, rgba(201,168,76,0.12) 0%, rgba(0,0,0,0.8) 100%)',
+                    color: '#C9A84C',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    boxShadow: '0 4px 20px rgba(201,168,76,0.15), 0 0 0 1px rgba(201,168,76,0.1), inset 0 1px 0 rgba(201,168,76,0.2)',
+                    textDecoration: 'none',
+                    transformStyle: 'preserve-3d',
+                    perspective: '800px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  View Exhibit →
+                </motion.a>
 
-              {/* Stack */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-xs px-2 py-0.5 rounded bg-white/5 text-[var(--color-text-muted)]"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-3">
-                <Button href={`/work/${project.slug}`} variant="secondary" size="sm">
-                  View Exhibit
-                </Button>
                 {project.links.live && (
-                  <Button href={project.links.live} variant="ghost" size="sm" external>
-                    Live Site &rarr;
-                  </Button>
+                  <motion.a
+                    href={project.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.08, rotateX: -6, rotateY: -4, y: -3 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 18px',
+                      borderRadius: '10px',
+                      border: '1px solid rgba(201,168,76,0.3)',
+                      background: 'rgba(201,168,76,0.05)',
+                      color: 'rgba(201,168,76,0.8)',
+                      fontSize: '11px',
+                      fontWeight: '600',
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                      backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
+                      boxShadow: '0 4px 16px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.15)',
+                      textDecoration: 'none',
+                      transformStyle: 'preserve-3d',
+                      perspective: '800px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Live Site ↗
+                  </motion.a>
                 )}
+
                 {project.slices.length > 0 && (
-                  <Button href={`/work/${project.slug}#demo`} variant="ghost" size="sm">
-                    Try Demo
-                  </Button>
+                  <motion.a
+                    href={`/work/${project.slug}#demo`}
+                    whileHover={{ scale: 1.08, rotateX: -6, rotateY: -4, y: -3 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 18px',
+                      borderRadius: '10px',
+                      border: '1px solid rgba(201,168,76,0.3)',
+                      background: 'rgba(201,168,76,0.05)',
+                      color: 'rgba(201,168,76,0.8)',
+                      fontSize: '11px',
+                      fontWeight: '600',
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                      backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
+                      boxShadow: '0 4px 16px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.15)',
+                      textDecoration: 'none',
+                      transformStyle: 'preserve-3d',
+                      perspective: '800px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Try Demo ✦
+                  </motion.a>
                 )}
+
                 {project.links.repo && (
-                  <Button href={project.links.repo} variant="ghost" size="sm" external>
-                    Source
-                  </Button>
+                  <motion.a
+                    href={project.links.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.08, rotateX: -6, rotateY: -4, y: -3 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 18px',
+                      borderRadius: '10px',
+                      border: '1px solid rgba(201,168,76,0.3)',
+                      background: 'rgba(201,168,76,0.05)',
+                      color: 'rgba(201,168,76,0.8)',
+                      fontSize: '11px',
+                      fontWeight: '600',
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                      backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
+                      boxShadow: '0 4px 16px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.15)',
+                      textDecoration: 'none',
+                      transformStyle: 'preserve-3d',
+                      perspective: '800px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Source ↗
+                  </motion.a>
                 )}
-              </div>
-            </Card>
+              </motion.div>
+            </div>
           </motion.div>
         ))}
       </motion.div>

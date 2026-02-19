@@ -18,31 +18,32 @@ const fadeUp = {
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-12" style={{ maxWidth: '48rem' }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="mb-16"
+        style={{ textAlign: 'center' }}
       >
-        <span className="mb-3 inline-block text-sm font-medium tracking-wider uppercase text-[var(--color-gold)]">
+        <span className="inline-block text-sm font-medium tracking-wider uppercase text-[var(--color-gold)]" style={{ display: 'block', marginBottom: '24px' }}>
           About
         </span>
         <h1
-          className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] mb-6"
-          style={{ fontFamily: "var(--font-playfair), serif" }}
+          className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)]"
+          style={{ fontFamily: 'var(--font-playfair), serif', marginBottom: '32px' }}
         >
           {personal.name}
         </h1>
-        <div className="max-w-2xl space-y-4">
+        <div className="space-y-4" style={{ maxWidth: '42rem', marginLeft: 'auto', marginRight: 'auto' }}>
           {personal.bio.map((paragraph, i) => (
             <p key={i} className="text-lg text-[var(--color-text-secondary)] leading-relaxed">
               {paragraph}
             </p>
           ))}
         </div>
-        <div className="flex flex-wrap gap-3 mt-8">
+        <div className="flex flex-wrap gap-3" style={{ marginTop: '40px', marginBottom: '80px', justifyContent: 'center' }}>
           <Button href={personal.resumeUrl} variant="primary" size="md">
             Download Resume
           </Button>
@@ -57,13 +58,14 @@ export default function AboutPage() {
 
       {/* Capabilities */}
       <section className="mb-16">
-        <SectionHeading title="Capabilities" align="left" className="mb-8" />
+        <SectionHeading title="Capabilities" />
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className="grid gap-6 sm:grid-cols-2"
+          style={{ marginBottom: '80px' }}
         >
           {personal.capabilities.map((cap) => (
             <motion.div key={cap.category} variants={fadeUp}>
@@ -89,12 +91,13 @@ export default function AboutPage() {
 
       {/* Tools */}
       <section className="mb-16">
-        <SectionHeading title="Tools & Technologies" align="left" className="mb-8" />
+        <SectionHeading title="Tools & Technologies" />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="flex flex-wrap gap-3"
+          style={{ justifyContent: 'center', marginBottom: '80px' }}
         >
           {personal.tools.map((tool) => (
             <span
@@ -109,7 +112,7 @@ export default function AboutPage() {
 
       {/* Process */}
       <section className="mb-16">
-        <SectionHeading title="My Process" align="left" className="mb-8" />
+        <SectionHeading title="My Process" />
         <div className="grid gap-6 md:grid-cols-3">
           {personal.process.map((step, i) => (
             <motion.div
