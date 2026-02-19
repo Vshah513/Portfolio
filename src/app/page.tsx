@@ -30,19 +30,6 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
-const projectBullets: Record<string, string[]> = {
-  outfittr: [
-    "Marketplace flows • Mobile-first",
-    "Payments-ready (M-Pesa oriented)",
-    "Interactive swipe discovery demo",
-  ],
-  "cash-clarity": [
-    "Finance dashboard + data viz",
-    "Tool suite (runway, scenarios, exports)",
-    "Public demo mode planned",
-  ],
-};
-
 const capabilityCards = [
   {
     title: "Product Engineering",
@@ -159,11 +146,53 @@ export default function Home() {
               title="What I've Built"
               description="Interactive products with real users, real payments, and real complexity."
             />
-            <div data-tour="work-cards" className="grid gap-8 md:grid-cols-2" style={{ maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}>
-            {featured.map((project, i) => {
-              const bullets = projectBullets[project.id];
-              const hasDemo = project.slices.length > 0;
-              return (
+            <motion.div
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                marginBottom: '28px',
+              }}
+            >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '8px 18px',
+                borderRadius: '999px',
+                border: '1px solid rgba(201,168,76,0.35)',
+                background: 'linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(0,0,0,0.5) 100%)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                boxShadow: '0 0 20px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.15)',
+              }}>
+                <span style={{
+                  fontSize: '11px',
+                  fontWeight: '500',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(201,168,76,0.8)',
+                }}>
+                  Click any card to explore
+                </span>
+                <motion.span
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                  style={{
+                    color: '#C9A84C',
+                    fontSize: '13px',
+                    lineHeight: 1,
+                  }}
+                >
+                  →
+                </motion.span>
+              </div>
+            </motion.div>
+            <div data-tour="work-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}>
+              {featured.map((project, i) => (
                 <motion.div
                   key={project.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -171,82 +200,52 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.15 }}
                 >
-                  <Card className="h-full flex flex-col">
-                    <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
-                      {project.heroImage ? (
-                        <>
-                          <img
-                            src={project.heroImage}
-                            alt=""
-                            className="absolute inset-0 w-full h-full object-cover"
-                          />
-                          <div
-                            className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"
-                            aria-hidden
-                          />
-                        </>
-                      ) : (
-                        <>
-                          <div
-                            className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"
-                            aria-hidden
-                          />
+                  <Link href="/work" style={{ textDecoration: 'none', display: 'block' }}>
+                    <Card className="h-full flex flex-col" hover={true}>
+                      <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
+                        {project.heroImage ? (
+                          <>
+                            <img
+                              src={project.heroImage}
+                              alt=""
+                              className="absolute inset-0 w-full h-full object-cover"
+                            />
+                            <div
+                              className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"
+                              aria-hidden
+                            />
+                          </>
+                        ) : (
                           <div className="absolute inset-0 flex items-center justify-center">
                             <span
                               className="text-3xl font-bold gradient-gold opacity-30"
-                              style={{ fontFamily: "var(--font-playfair), serif" }}
+                              style={{ fontFamily: 'var(--font-playfair), serif' }}
                             >
                               {project.title}
                             </span>
                           </div>
-                        </>
-                      )}
-                    </div>
+                        )}
+                      </div>
 
-                    <div className="flex items-center gap-2 mb-3">
-                      <Badge variant={project.status === "shipped" ? "status" : "gold"}>
-                        {project.status === "shipped" ? "Shipped" : "In Progress"}
-                      </Badge>
-                      {project.tags.slice(0, 3).map((tag) => (
-                        <Badge key={tag}>{tag}</Badge>
-                      ))}
-                    </div>
-
-                    <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
-                      {project.title}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed mb-3">
-                      {project.tagline}
-                    </p>
-
-                    {bullets && (
-                      <ul className="text-xs text-white/60 leading-relaxed mb-6 flex-1 space-y-1">
-                        {bullets.map((b) => (
-                          <li key={b}>{b}</li>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Badge variant={project.status === 'shipped' ? 'status' : 'gold'}>
+                          {project.status === 'shipped' ? 'Shipped' : 'In Progress'}
+                        </Badge>
+                        {project.tags.slice(0, 3).map((tag) => (
+                          <Badge key={tag}>{tag}</Badge>
                         ))}
-                      </ul>
-                    )}
-                    {!bullets && <div className="flex-1 min-h-[3rem]" />}
+                      </div>
 
-                    <div className="flex flex-wrap gap-3">
-                      {hasDemo && (
-                        <Button href={`/work/${project.slug}#demo`} variant="primary" size="sm">
-                          Try Demo
-                        </Button>
-                      )}
-                      <Button href={`/work/${project.slug}`} variant="secondary" size="sm">
-                        View Exhibit
-                      </Button>
-                      {project.links.live && (
-                        <Button href={project.links.live} variant="ghost" size="sm" external>
-                          Live Site &rarr;
-                        </Button>
-                      )}
-                    </div>
-                  </Card>
+                      <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
+                        {project.title}
+                      </h3>
+                      <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed">
+                        {project.tagline}
+                      </p>
+                    </Card>
+                  </Link>
                 </motion.div>
-              );
-            })}
+              ))}
             </div>
           </SectionShell>
 

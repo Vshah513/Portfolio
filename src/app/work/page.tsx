@@ -46,6 +46,28 @@ export default function WorkPage() {
               {/* The card itself */}
               <Card className="h-full flex flex-col">
                 <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
+                  {project.heroImage ? (
+                    <>
+                      <img
+                        src={project.heroImage}
+                        alt=""
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      <div
+                        className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"
+                        aria-hidden
+                      />
+                    </>
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span
+                        className="text-3xl font-bold gradient-gold opacity-30"
+                        style={{ fontFamily: 'var(--font-playfair), serif' }}
+                      >
+                        {project.title}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-wrap items-center gap-2 mb-3">
                   <Badge variant={project.status === 'shipped' ? 'status' : 'gold'}>
