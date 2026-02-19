@@ -29,7 +29,7 @@ export function Nav() {
             aria-label="Viraj Shah - Home"
           >
             <img
-              src="/Viraj Shah updated2.png"
+              src="/UpdatedFinal Viraj Shah.png"
               alt="Viraj Shah"
               className="h-14 w-auto max-w-[260px] object-contain"
             />
