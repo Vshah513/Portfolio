@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SectionShell } from "@/components/layout/SectionShell";
@@ -74,6 +75,7 @@ const stackChips = [
 
 export default function Home() {
   const featured = getFeaturedProjects();
+  const [workCarouselIndex, setWorkCarouselIndex] = useState(0);
 
   return (
     <>
@@ -146,6 +148,7 @@ export default function Home() {
               title="What I've Built"
               description="Interactive products with real users, real payments, and real complexity."
             />
+            {/* Mobile hint pill */}
             <motion.div
               animate={{ y: [0, -5, 0] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
@@ -181,17 +184,19 @@ export default function Home() {
                 <motion.span
                   animate={{ x: [0, 4, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{
-                    color: '#C9A84C',
-                    fontSize: '13px',
-                    lineHeight: 1,
-                  }}
+                  style={{ color: '#C9A84C', fontSize: '13px', lineHeight: 1 }}
                 >
                   →
                 </motion.span>
               </div>
             </motion.div>
-            <div data-tour="work-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}>
+
+            {/* Desktop grid */}
+            <div
+              data-tour="work-cards"
+              className="hidden md:grid"
+              style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}
+            >
               {featured.map((project, i) => (
                 <motion.div
                   key={project.id}
@@ -205,28 +210,17 @@ export default function Home() {
                       <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
                         {project.heroImage ? (
                           <>
-                            <img
-                              src={project.heroImage}
-                              alt=""
-                              className="absolute inset-0 w-full h-full object-cover"
-                            />
-                            <div
-                              className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"
-                              aria-hidden
-                            />
+                            <img src={project.heroImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none" aria-hidden />
                           </>
                         ) : (
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <span
-                              className="text-3xl font-bold gradient-gold opacity-30"
-                              style={{ fontFamily: 'var(--font-playfair), serif' }}
-                            >
+                            <span className="text-3xl font-bold gradient-gold opacity-30" style={{ fontFamily: 'var(--font-playfair), serif' }}>
                               {project.title}
                             </span>
                           </div>
                         )}
                       </div>
-
                       <div className="flex items-center gap-2 mb-3">
                         <Badge variant={project.status === 'shipped' ? 'status' : 'gold'}>
                           {project.status === 'shipped' ? 'Shipped' : 'In Progress'}
@@ -235,17 +229,117 @@ export default function Home() {
                           <Badge key={tag}>{tag}</Badge>
                         ))}
                       </div>
-
-                      <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
-                        {project.title}
-                      </h3>
-                      <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed">
-                        {project.tagline}
-                      </p>
+                      <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">{project.title}</h3>
+                      <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed">{project.tagline}</p>
                     </Card>
                   </Link>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Mobile carousel */}
+            <div className="md:hidden" data-tour="work-cards">
+              <div>
+                <div style={{ position: 'relative' }}>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={workCarouselIndex}
+                      initial={{ opacity: 0, x: 40 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -40 }}
+                      transition={{ duration: 0.3, ease: 'easeOut' }}
+                    >
+                      <Link href="/work" style={{ textDecoration: 'none', display: 'block' }}>
+                        <Card className="flex flex-col" hover={true}>
+                          <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-white/5 to-white/[0.02]">
+                            {featured[workCarouselIndex].heroImage ? (
+                              <img src={featured[workCarouselIndex].heroImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                            ) : (
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <span className="text-2xl font-bold gradient-gold opacity-30" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+                                  {featured[workCarouselIndex].title}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2 mb-3">
+                            <Badge variant={featured[workCarouselIndex].status === 'shipped' ? 'status' : 'gold'}>
+                              {featured[workCarouselIndex].status === 'shipped' ? 'Shipped' : 'In Progress'}
+                            </Badge>
+                            {featured[workCarouselIndex].tags.slice(0, 2).map((tag) => (
+                              <Badge key={tag}>{tag}</Badge>
+                            ))}
+                          </div>
+                          <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">{featured[workCarouselIndex].title}</h3>
+                          <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed">{featured[workCarouselIndex].tagline}</p>
+                        </Card>
+                      </Link>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {/* Navigation arrows + dots */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
+                  <motion.button
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setWorkCarouselIndex((i) => Math.max(0, i - 1))}
+                    disabled={workCarouselIndex === 0}
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      border: '1px solid rgba(201,168,76,0.4)',
+                      background: 'rgba(201,168,76,0.06)',
+                      color: workCarouselIndex === 0 ? 'rgba(201,168,76,0.2)' : '#C9A84C',
+                      fontSize: '16px',
+                      cursor: workCarouselIndex === 0 ? 'default' : 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    ←
+                  </motion.button>
+
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    {featured.map((_, i) => (
+                      <div
+                        key={i}
+                        onClick={() => setWorkCarouselIndex(i)}
+                        style={{
+                          width: i === workCarouselIndex ? '20px' : '6px',
+                          height: '6px',
+                          borderRadius: '999px',
+                          background: i === workCarouselIndex ? '#C9A84C' : 'rgba(201,168,76,0.25)',
+                          transition: 'all 0.3s ease',
+                          cursor: 'pointer',
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  <motion.button
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setWorkCarouselIndex((i) => Math.min(featured.length - 1, i + 1))}
+                    disabled={workCarouselIndex === featured.length - 1}
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      border: '1px solid rgba(201,168,76,0.4)',
+                      background: 'rgba(201,168,76,0.06)',
+                      color: workCarouselIndex === featured.length - 1 ? 'rgba(201,168,76,0.2)' : '#C9A84C',
+                      fontSize: '16px',
+                      cursor: workCarouselIndex === featured.length - 1 ? 'default' : 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    →
+                  </motion.button>
+                </div>
+              </div>
             </div>
           </SectionShell>
 

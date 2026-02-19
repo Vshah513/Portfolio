@@ -37,7 +37,7 @@ function useDeviceCapability() {
       // Check for mobile / low-end device
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
       const memory = (navigator as unknown as { deviceMemory?: number }).deviceMemory;
-      if (isMobile && memory && memory < 4) {
+      if (isMobile && memory && memory < 2) {
         setCapable(false);
       }
     } catch {
@@ -66,7 +66,7 @@ export function ShowroomScene() {
   return (
     <div className="w-full h-full">
       <Canvas
-        camera={{ position: [0, 1.5, 10], fov: 42 }}
+        camera={{ position: [0, 1.5, typeof window !== 'undefined' && window.innerWidth < 768 ? 18 : 10], fov: typeof window !== 'undefined' && window.innerWidth < 768 ? 55 : 42 }}
         dpr={[1, 1.5]}
         gl={{
           antialias: true,
