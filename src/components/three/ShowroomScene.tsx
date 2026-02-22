@@ -66,7 +66,7 @@ export function ShowroomScene() {
   return (
     <div className="w-full h-full">
       <Canvas
-        camera={{ position: [0, 1.5, typeof window !== 'undefined' && window.innerWidth < 768 ? 18 : 10], fov: typeof window !== 'undefined' && window.innerWidth < 768 ? 55 : 42 }}
+        camera={{ position: [0, 1.5, typeof window !== 'undefined' && window.innerWidth < 768 ? 11 : 10], fov: typeof window !== 'undefined' && window.innerWidth < 768 ? 72 : 42 }}
         dpr={[1, 1.5]}
         gl={{
           antialias: true,
