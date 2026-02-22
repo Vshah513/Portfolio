@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import { projects } from "@/content/projects";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
@@ -16,7 +17,36 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
+const validSlugs = new Set(projects.map((p) => p.slug));
+
+function getFocusedSlug(): string | null {
+  if (typeof window === "undefined") return null;
+  const hash = window.location.hash.slice(1);
+  return hash && validSlugs.has(hash) ? hash : null;
+}
+
 export default function WorkPage() {
+  const [focusedSlug, setFocusedSlug] = useState<string | null>(getFocusedSlug);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setFocusedSlug(getFocusedSlug());
+    const onHashChange = () => setFocusedSlug(getFocusedSlug());
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  useEffect(() => {
+    if (!focusedSlug || !gridRef.current) return;
+    const el = document.getElementById(`project-${focusedSlug}`);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [focusedSlug]);
+
+  const clearFocus = () => {
+    window.history.replaceState(null, "", window.location.pathname);
+    setFocusedSlug(null);
+  };
+
   const sorted = [...projects].sort((a, b) => {
     if (a.featured && !b.featured) return -1;
     if (!a.featured && b.featured) return 1;
@@ -33,16 +63,45 @@ export default function WorkPage() {
         />
       </div>
 
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        animate="visible"
-        className="grid gap-8 md:grid-cols-2"
-        style={{ marginTop: '48px' }}
-      >
-        {sorted.map((project) => (
-          <motion.div key={project.id} variants={fadeUp}>
-            <div style={{ position: 'relative', paddingBottom: '64px' }}>
+      <div ref={gridRef} className="relative">
+        <AnimatePresence>
+          {focusedSlug && (
+            <motion.button
+              type="button"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={clearFocus}
+              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm cursor-pointer"
+              aria-label="Show all projects"
+            />
+          )}
+        </AnimatePresence>
+
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="grid gap-8 md:grid-cols-2"
+          style={{ marginTop: '48px' }}
+        >
+          {sorted.map((project) => {
+            const isFocused = focusedSlug === project.slug;
+            return (
+              <motion.div
+                key={project.id}
+                id={`project-${project.slug}`}
+                variants={fadeUp}
+                className={isFocused ? "relative z-[60]" : "relative z-50"}
+                style={{
+                  filter: focusedSlug ? (isFocused ? "none" : "blur(6px)") : undefined,
+                  opacity: focusedSlug ? (isFocused ? 1 : 0.6) : 1,
+                  pointerEvents: focusedSlug && !isFocused ? "none" : undefined,
+                  transition: "filter 0.3s ease, opacity 0.3s ease",
+                }}
+              >
+                <div style={{ position: 'relative', paddingBottom: '64px' }}>
               {/* The card itself */}
               <Card className="h-full flex flex-col">
                 <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
@@ -245,9 +304,11 @@ export default function WorkPage() {
                 )}
               </motion.div>
             </div>
-          </motion.div>
-        ))}
-      </motion.div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </div>
     </div>
   );
 }

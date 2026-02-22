@@ -19,6 +19,12 @@
 
   --color-success: #4ADE80;
   --color-error: #F87171;
+
+  --zone-hero: #050505;
+  --zone-work: #03071e;
+  --zone-process: #020e14;
+  --zone-capabilities: #050505;
+  --zone-cta: #050505;
 }
 
 @theme inline {
@@ -137,4 +143,44 @@ a {
   50% {
     opacity: 0.8;
   }
+}
+
+/* ── Space scroll effects ── */
+
+@keyframes float-orb {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(8px, -12px);
+  }
+  50% {
+    transform: translate(-4px, -20px);
+  }
+  75% {
+    transform: translate(-10px, -8px);
+  }
+}
+
+.ambient-orb-float {
+  animation: float-orb 8s ease-in-out infinite;
+}
+
+@keyframes warp-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  30% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+.warp-burst-active {
+  animation: warp-burst 400ms ease-out forwards !important;
 }

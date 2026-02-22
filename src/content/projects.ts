@@ -84,10 +84,11 @@ export const projects: Project[] = [
     tagline: "Personal finance command center",
     description:
       "A comprehensive financial planning tool that gives you complete visibility into your money. Features a real-time dashboard, budget tracking with Sankey cash-flow diagrams, goal setting, and a suite of six financial calculators — from runway/burn analysis to life-event simulation.",
-    status: "in-progress",
+    status: "shipped",
     featured: true,
     tags: ["finance", "data-viz", "tools", "design"],
     links: {
+      live: "https://cash-clarity-eta.vercel.app/",
       repo: "https://github.com/Vshah513/Financial-Planner",
     },
     highlights: [
@@ -111,11 +112,11 @@ export const projects: Project[] = [
       "Bank account syncing",
     ],
     slices: [],
-    heroImage: "/projects/cash-clarity/hero.jpg",
+    heroImage: "/New New logo.png",
     screenshots: [
-      "/projects/cash-clarity/dashboard.jpg",
-      "/projects/cash-clarity/cashflow.jpg",
-      "/projects/cash-clarity/tools.jpg",
+      "/New New logo.png",
+      "/New New logo.png",
+      "/New New logo.png",
     ],
   },
 ];

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -12,6 +12,9 @@ import { personal } from "@/content/personal";
 import { getFeaturedProjects } from "@/content/projects";
 import { HeroDragHintProvider } from "@/contexts/HeroDragHintContext";
 import { HeroDragHint } from "@/components/hero/HeroDragHint";
+import { SectionAtmosphere } from "@/components/space/SectionAtmosphere";
+import { PortalRing } from "@/components/space/PortalRing";
+import { AmbientOrbs } from "@/components/space/AmbientOrbs";
 import dynamic from "next/dynamic";
 
 const ShowroomScene = dynamic(
@@ -80,6 +83,7 @@ export default function Home() {
   return (
     <>
       {/* ── Hero ── */}
+      <SectionAtmosphere zone="hero">
       <section className="relative min-h-[75vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden pt-6 pb-32 md:pb-48">
         <HeroDragHintProvider>
           {/* 3D layer — behind everything */}
@@ -137,12 +141,16 @@ export default function Home() {
         </motion.div>
         </HeroDragHintProvider>
       </section>
+      </SectionAtmosphere>
 
-      {/* ── Everything below hero: normal flow, solid bg, above 3D ── */}
-      <div className="relative z-10 bg-[var(--color-bg)]">
-        <div className="flex flex-col gap-24 md:gap-32">
+      <PortalRing />
+
+      {/* ── Everything below hero ── */}
+      <div className="relative z-10">
           {/* S3: Featured Work */}
+          <SectionAtmosphere zone="work">
           <SectionShell id="work" className="border-b border-white/5 scroll-mt-24 !pt-20 md:!pt-24">
+            <AmbientOrbs count={3} color="blue" />
             <SectionHeading
               label="Featured Work"
               title="What I've Built"
@@ -205,7 +213,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.15 }}
                 >
-                  <Link href="/work" style={{ textDecoration: 'none', display: 'block' }}>
+                  <Link href={`/work#${project.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
                     <Card className="h-full flex flex-col" hover={true}>
                       <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-white/5 to-white/[0.02]">
                         {project.heroImage ? (
@@ -249,7 +257,7 @@ export default function Home() {
                       exit={{ opacity: 0, x: -40 }}
                       transition={{ duration: 0.3, ease: 'easeOut' }}
                     >
-                      <Link href="/work" style={{ textDecoration: 'none', display: 'block' }}>
+                      <Link href={`/work#${featured[workCarouselIndex].slug}`} style={{ textDecoration: 'none', display: 'block' }}>
                         <Card className="flex flex-col" hover={true}>
                           <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-white/5 to-white/[0.02]">
                             {featured[workCarouselIndex].heroImage ? (
@@ -342,9 +350,14 @@ export default function Home() {
               </div>
             </div>
           </SectionShell>
+          </SectionAtmosphere>
+
+          <PortalRing />
 
           {/* S4: Process */}
+          <SectionAtmosphere zone="process">
           <SectionShell id="process" className="border-b border-white/5 scroll-mt-24">
+            <AmbientOrbs count={3} color="blue" />
             <SectionHeading
               label="Process"
               title="How I Work"
@@ -384,9 +397,14 @@ export default function Home() {
             ))}
             </div>
           </SectionShell>
+          </SectionAtmosphere>
+
+          <PortalRing />
 
           {/* S5: Capabilities */}
+          <SectionAtmosphere zone="capabilities">
           <SectionShell id="capabilities" className="border-b border-white/5 scroll-mt-24">
+            <AmbientOrbs count={4} color="gold" />
             <SectionHeading
               label="Capabilities"
               title="What I Do"
@@ -443,8 +461,55 @@ export default function Home() {
             )}
             </div>
           </SectionShell>
+          </SectionAtmosphere>
 
-        </div>
+          <PortalRing />
+
+          {/* S6: CTA */}
+          <SectionAtmosphere zone="cta">
+          <SectionShell id="cta" className="scroll-mt-24">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="mx-auto max-w-2xl text-center"
+            >
+              <Card hover={false} className="relative overflow-hidden">
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'radial-gradient(ellipse at 50% 60%, rgba(201,168,76,0.06) 0%, transparent 70%)',
+                    pointerEvents: 'none',
+                  }}
+                />
+                <div className="relative z-10 py-8 px-4">
+                  <h2
+                    className="text-2xl sm:text-3xl font-bold text-[var(--color-text-primary)] mb-4"
+                    style={{ fontFamily: 'var(--font-playfair), serif' }}
+                  >
+                    Let&rsquo;s Build Something{' '}
+                    <span className="gradient-gold">Together</span>
+                  </h2>
+                  <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed mb-8 max-w-md mx-auto">
+                    Have an idea that needs engineering muscle? I ship fast, communicate clearly, and care about the details.
+                  </p>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <Button href="/contact" variant="primary" size="lg">
+                      Start a Conversation
+                    </Button>
+                    <Button href="/work" variant="secondary" size="lg">
+                      See My Work
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          </SectionShell>
+          </SectionAtmosphere>
+
       </div>
     </>
   );

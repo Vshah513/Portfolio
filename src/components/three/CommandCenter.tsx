@@ -89,9 +89,10 @@ export function CommandCenter() {
             title={project.title}
             tagline={project.tagline}
             status={project.status}
+            logoUrl={project.heroImage}
             onClick={() => {
               hint?.dismissHint();
-              router.push(`/work/${project.slug}`);
+              router.push(`/work#${project.slug}`);
             }}
           />
         ))}
