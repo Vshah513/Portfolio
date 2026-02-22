@@ -104,7 +104,7 @@ export default function Home() {
           variants={stagger}
           initial="hidden"
           animate="visible"
-          className="relative z-10 mx-auto max-w-3xl px-4 sm:px-5 text-center"
+          className="relative z-10 mx-auto max-w-3xl px-4 sm:px-5 text-center -translate-y-16 md:translate-y-0"
         >
           <motion.div variants={fadeUp} className="mb-3">
             <Badge variant="gold">{personal.title}</Badge>
