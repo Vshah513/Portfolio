@@ -24,7 +24,7 @@ export function CommandCenter() {
   const hint = useHeroDragHint();
 
   const totalSlots = projects.length + PLACEHOLDER_SLOTS.length;
-  const orbitRadius = 6.5;
+  const orbitRadius = 4.8;
   const angleStep = (Math.PI * 2) / totalSlots;
 
   const spinning = useShowroomStore((s) => s.spinning);

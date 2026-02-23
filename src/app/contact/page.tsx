@@ -4,6 +4,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { personal } from "@/content/personal";
+import { SectionAtmosphere } from "@/components/space/SectionAtmosphere";
+import { PortalRing } from "@/components/space/PortalRing";
+import { AmbientOrbs } from "@/components/space/AmbientOrbs";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
@@ -28,12 +31,14 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-12" style={{ maxWidth: '48rem' }}>
+    <SectionAtmosphere zone="cta">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-24 relative" style={{ maxWidth: '48rem' }}>
+      <AmbientOrbs count={2} color="gold" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        style={{ textAlign: 'center' }}
+        style={{ textAlign: 'center', paddingTop: 'clamp(100px, 14vh, 160px)' }}
       >
         <span className="inline-block text-sm font-medium tracking-wider uppercase text-[var(--color-gold)]" style={{ display: 'block', marginBottom: '24px' }}>
           Contact
@@ -178,5 +183,6 @@ export default function ContactPage() {
         </motion.form>
       )}
     </div>
+    </SectionAtmosphere>
   );
 }

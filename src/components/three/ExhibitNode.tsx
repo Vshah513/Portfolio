@@ -155,6 +155,67 @@ export function ExhibitNode({
       >
         {status === "shipped" ? "SHIPPED" : "IN PROGRESS"}
       </Text>
+
+      {/* Back face — visible when card rotates away */}
+      <group rotation={[0, Math.PI, 0]}>
+        {/* Back panel */}
+        <mesh position={[0, 0, 0.03]}>
+          <planeGeometry args={[2.2, 1.5]} />
+          <meshStandardMaterial
+            color="#111111"
+            roughness={0.3}
+            metalness={0.8}
+          />
+        </mesh>
+
+        {/* Gold accent line */}
+        <mesh position={[0, 0.45, 0.04]}>
+          <planeGeometry args={[1.6, 0.002]} />
+          <meshStandardMaterial
+            color="#C9A84C"
+            emissive="#C9A84C"
+            emissiveIntensity={0.8}
+          />
+        </mesh>
+
+        {/* Title on back */}
+        <Text
+          position={[0, 0.2, 0.04]}
+          fontSize={0.18}
+          color="#C9A84C"
+          anchorX="center"
+          anchorY="middle"
+          maxWidth={2}
+          fontWeight="bold"
+        >
+          {title}
+        </Text>
+
+        {/* Tagline on back */}
+        <Text
+          position={[0, -0.08, 0.04]}
+          fontSize={0.095}
+          color="rgba(255,255,255,0.6)"
+          anchorX="center"
+          anchorY="middle"
+          maxWidth={1.9}
+          textAlign="center"
+        >
+          {tagline}
+        </Text>
+
+        {/* Status badge on back */}
+        <Text
+          position={[0, -0.42, 0.04]}
+          fontSize={0.08}
+          color="#C9A84C"
+          anchorX="center"
+          anchorY="middle"
+          fontWeight="bold"
+        >
+          {status === 'shipped' ? '✦ SHIPPED ✦' : '✦ IN PROGRESS ✦'}
+        </Text>
+      </group>
     </group>
   );
 }

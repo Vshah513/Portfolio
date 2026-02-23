@@ -5,6 +5,8 @@ import { personal } from "@/content/personal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { SectionAtmosphere } from "@/components/space/SectionAtmosphere";
+import { AmbientOrbs } from "@/components/space/AmbientOrbs";
 
 const stagger = {
   hidden: {},
@@ -18,14 +20,16 @@ const fadeUp = {
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-12" style={{ maxWidth: '48rem' }}>
+    <SectionAtmosphere zone="work">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-24 relative" style={{ maxWidth: '48rem' }}>
+      <AmbientOrbs count={3} color="blue" />
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="mb-16"
-        style={{ textAlign: 'center' }}
+        style={{ textAlign: 'center', paddingTop: 'clamp(100px, 14vh, 160px)' }}
       >
         <span className="inline-block text-sm font-medium tracking-wider uppercase text-[var(--color-gold)]" style={{ display: 'block', marginBottom: '24px' }}>
           About
@@ -140,5 +144,6 @@ export default function AboutPage() {
         </div>
       </section>
     </div>
+    </SectionAtmosphere>
   );
 }

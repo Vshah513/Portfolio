@@ -84,10 +84,10 @@ export default function Home() {
     <>
       {/* ── Hero ── */}
       <SectionAtmosphere zone="hero">
-      <section className="relative min-h-[75vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden pt-6 pb-32 md:pb-48">
+      <section className="relative min-h-[90vh] lg:min-h-[95vh] flex flex-col items-center justify-start overflow-hidden pb-0" style={{ paddingTop: 'clamp(100px, 14vh, 160px)' }}>
         <HeroDragHintProvider>
           {/* 3D layer — behind everything */}
-          <div className="absolute inset-0 z-0 pointer-events-auto" data-tour="hero-scene">
+          <div className="absolute inset-0 z-0 pointer-events-auto" data-tour="hero-scene" style={{ top: '18%' }}>
             <ShowroomScene />
           </div>
           {/* Vignette above 3D, below text */}
@@ -104,12 +104,8 @@ export default function Home() {
           variants={stagger}
           initial="hidden"
           animate="visible"
-          className="relative z-10 mx-auto max-w-3xl px-4 sm:px-5 text-center -translate-y-16 md:translate-y-0"
+          className="relative z-10 mx-auto max-w-3xl px-4 sm:px-5 text-center"
         >
-          <motion.div variants={fadeUp} className="mb-3">
-            <Badge variant="gold">{personal.title}</Badge>
-          </motion.div>
-
           <motion.h1
             variants={fadeUp}
             className="text-xl font-bold tracking-tight sm:text-3xl lg:text-4xl"
@@ -151,60 +147,55 @@ export default function Home() {
           <SectionAtmosphere zone="work">
           <SectionShell id="work" className="border-b border-white/5 scroll-mt-24 !pt-20 md:!pt-24">
             <AmbientOrbs count={3} color="blue" />
-            <SectionHeading
-              label="Featured Work"
-              title="What I've Built"
-              description="Interactive products with real users, real payments, and real complexity."
-            />
-            {/* Mobile hint pill */}
-            <motion.div
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '10px',
-                marginBottom: '28px',
-              }}
-            >
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '8px 18px',
-                borderRadius: '999px',
-                border: '1px solid rgba(201,168,76,0.35)',
-                background: 'linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(0,0,0,0.5) 100%)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                boxShadow: '0 0 20px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.15)',
-              }}>
-                <span style={{
-                  fontSize: '11px',
-                  fontWeight: '500',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  color: 'rgba(201,168,76,0.8)',
-                }}>
-                  Click any card to explore
-                </span>
-                <motion.span
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{ color: '#C9A84C', fontSize: '13px', lineHeight: 1 }}
-                >
-                  →
-                </motion.span>
+            <div className="mx-auto w-full max-w-5xl">
+              {/* Center the heading text */}
+              <div className="text-center">
+                <SectionHeading
+                  label="Featured Work"
+                  title="What I've Built"
+                  description="Interactive products with real users, real payments, and real complexity."
+                />
               </div>
-            </motion.div>
 
-            {/* Desktop grid */}
-            <div
-              data-tour="work-cards"
-              className="hidden md:grid"
-              style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', maxWidth: '64rem', marginLeft: 'auto', marginRight: 'auto' }}
-            >
+              {/* Mobile hint pill (centered) */}
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                className="flex items-center justify-center gap-2 mb-7"
+              >
+                <div
+                  className="flex items-center gap-2 px-5 py-2 rounded-full border"
+                  style={{
+                    borderColor: "rgba(201,168,76,0.35)",
+                    background:
+                      "linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(0,0,0,0.5) 100%)",
+                    backdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(10px)",
+                    boxShadow:
+                      "0 0 20px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.15)",
+                  }}
+                >
+                  <span
+                    className="text-[11px] font-medium uppercase"
+                    style={{ letterSpacing: "0.12em", color: "rgba(201,168,76,0.8)" }}
+                  >
+                    Click any card to explore
+                  </span>
+                  <motion.span
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ color: "#C9A84C", fontSize: "13px", lineHeight: 1 }}
+                  >
+                    →
+                  </motion.span>
+                </div>
+              </motion.div>
+
+              {/* Desktop grid (centered, same width as heading) */}
+              <div
+                data-tour="work-cards"
+                className="hidden md:grid grid-cols-2 gap-8"
+              >
               {featured.map((project, i) => (
                 <motion.div
                   key={project.id}
@@ -245,7 +236,7 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Mobile carousel */}
+            {/* Mobile carousel (also same width) */}
             <div className="md:hidden" data-tour="work-cards">
               <div>
                 <div style={{ position: 'relative' }}>
@@ -349,6 +340,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            </div>
           </SectionShell>
           </SectionAtmosphere>
 
@@ -373,18 +365,7 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: i * 0.15 }}
               >
                 <Card hover={false} className="text-center relative overflow-hidden h-full">
-                  <div
-                    className="absolute top-4 right-4 text-6xl font-bold text-white/[0.03]"
-                    style={{ fontFamily: "var(--font-playfair), serif" }}
-                  >
-                    {step.step}
-                  </div>
                   <div className="relative z-10">
-                    <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[var(--color-gold)]/10 flex items-center justify-center">
-                      <span className="text-lg font-bold text-[var(--color-gold)]">
-                        {step.step}
-                      </span>
-                    </div>
                     <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
                       {step.title}
                     </h3>
@@ -443,22 +424,6 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-4" style={{ marginTop: '48px', justifyContent: 'center' }}>
-            <Button href={personal.github} variant="secondary" size="sm" external>
-              GitHub
-            </Button>
-            <Button href={personal.linkedin} variant="secondary" size="sm" external>
-              LinkedIn
-            </Button>
-            <Button href={`mailto:${personal.email}`} variant="secondary" size="sm">
-              Email
-            </Button>
-            {personal.resumeUrl && (
-              <Button href={personal.resumeUrl} variant="ghost" size="sm" external>
-                Download Resume
-              </Button>
-            )}
             </div>
           </SectionShell>
           </SectionAtmosphere>

@@ -6,6 +6,8 @@ import { projects } from "@/content/projects";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { SectionAtmosphere } from "@/components/space/SectionAtmosphere";
+import { AmbientOrbs } from "@/components/space/AmbientOrbs";
 
 const stagger = {
   hidden: {},
@@ -54,8 +56,10 @@ export default function WorkPage() {
   });
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">
-      <div style={{ paddingTop: '140px', textAlign: 'center', paddingBottom: '64px' }}>
+    <SectionAtmosphere zone="work">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-24 relative">
+      <AmbientOrbs count={3} color="blue" />
+      <div style={{ paddingTop: 'clamp(100px, 14vh, 160px)', textAlign: 'center', paddingBottom: '64px' }}>
         <SectionHeading
           label="Portfolio"
           title="My Work"
@@ -310,5 +314,6 @@ export default function WorkPage() {
         </motion.div>
       </div>
     </div>
+    </SectionAtmosphere>
   );
 }

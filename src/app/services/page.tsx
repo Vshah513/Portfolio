@@ -6,11 +6,15 @@ import { services } from "@/content/services";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { SectionAtmosphere } from "@/components/space/SectionAtmosphere";
+import { AmbientOrbs } from "@/components/space/AmbientOrbs";
 
 export default function ServicesPage() {
   return (
-    <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-12" style={{ maxWidth: '72rem' }}>
-      <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+    <SectionAtmosphere zone="process">
+    <div className="mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pb-24 relative" style={{ maxWidth: '72rem' }}>
+      <AmbientOrbs count={3} color="blue" />
+      <div style={{ paddingTop: 'clamp(100px, 14vh, 160px)', textAlign: 'center', marginBottom: '80px' }}>
         <SectionHeading
           label="Services"
           title="How We Can Work Together"
@@ -18,10 +22,10 @@ export default function ServicesPage() {
         />
       </div>
 
-      {/* Desktop grid */}
+      {/* Desktop grid — offset right so Launch Landing starts well in from the left */}
       <div
-        className="hidden md:grid"
-        style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', maxWidth: '72rem', marginLeft: 'auto', marginRight: 'auto' }}
+        className="hidden md:grid md:ml-24 lg:ml-40 xl:ml-48 mr-auto mb-16"
+        style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', maxWidth: '72rem' }}
       >
         {services.map((pkg, i) => (
           <motion.div
@@ -32,7 +36,7 @@ export default function ServicesPage() {
             transition={{ duration: 0.5, delay: i * 0.1 }}
           >
             <Card hover={false} className="h-full flex flex-col relative overflow-hidden">
-              <div className="absolute top-6 right-6">
+              <div className="absolute top-3 right-6">
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-[var(--color-gold)]/10 text-[var(--color-gold)] border border-[var(--color-gold)]/20">
                   {pkg.timeline}
                 </span>
@@ -79,26 +83,8 @@ export default function ServicesPage() {
 
       {/* Mobile carousel */}
       <MobileServicesCarousel services={services} />
-
-      {/* Custom work note */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mt-16 text-center"
-      >
-        <p className="text-[var(--color-text-secondary)]">
-          Need something different?{" "}
-          <a
-            href="/contact"
-            className="text-[var(--color-gold)] hover:underline"
-          >
-            Let&apos;s talk about a custom scope.
-          </a>
-        </p>
-      </motion.div>
     </div>
+    </SectionAtmosphere>
   );
 }
 
